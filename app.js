@@ -1,36 +1,27 @@
-// app.js
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/esm/supabase.js';
 
 const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieWNidXlndml0dnlyeGJ5anVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMTEwNjQsImV4cCI6MjA0NTY4NzA2NH0.NcuKCvQ3T1rQid_DVW3z7Df4ICueZ4jYvTdWcLW4ETM';
+const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'; // replace with your actual anon key
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const authButton = document.getElementById('auth-button');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const statusMessage = document.getElementById('statusMessage');
+const loginForm = document.getElementById('login-form');
+const errorMessage = document.getElementById('error-message');
 
-authButton.addEventListener('click', async () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
+loginForm.addEventListener('submit', async (event) => {
+  event.preventDefault(); // Prevent form submission
 
-    const { user, session, error } = await supabase.auth.signUp({
-        email,
-        password,
-    });
+  const email = event.target.email.value;
+  const password = event.target.password.value;
 
-    if (error) {
-        // Attempting to sign in if there's an error during signup
-        const { error: signInError } = await supabase.auth.signIn({
-            email,
-            password,
-        });
-        if (signInError) {
-            statusMessage.textContent = `Error: ${signInError.message}`;
-        } else {
-            statusMessage.textContent = 'Successfully logged in!';
-        }
-    } else {
-        statusMessage.textContent = 'Check your email for confirmation!';
-    }
+  const { user, error } = await supabase.auth.signIn({
+    email,
+    password,
+  });
+
+  if (error) {
+    errorMessage.textContent = error.message;
+  } else {
+    // Redirect to protected.html
+    window.location.href = 'protected.html';
+  }
 });
