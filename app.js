@@ -1,50 +1,71 @@
-// Import Supabase client library
-import { createClient } from '@supabase/supabase-js'; // Use this only if you're using a module system, otherwise just include it in your HTML.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackle™ - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <header>
+        <h1>Trackle™ Login</h1>
+    </header>
+    <main>
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="button" onclick="handleAuth()">Login / Sign Up</button>
+        </form>
+        <p id="statusMessage"></p>
+    </main>
+    <footer>
+        <p>&copy; 2024 SB Designs. All rights reserved.</p>
+    </footer>
+    <script type="module">
+        const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co';
+        const supabaseKey = 'your-supabase-key-here'; // Replace with your Supabase key
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// Initialize Supabase client
-const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co'; // Your Supabase URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieWNidXlndml0dnlyeGJ5anVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMTEwNjQsImV4cCI6MjA0NTY4NzA2NH0.NcuKCvQ3T1rQid_DVW3z7Df4ICueZ4jYvTdWcLW4ETM'; // Your Supabase anon key
-const supabase = createClient(supabaseUrl, supabaseKey); // Correctly initialize the Supabase client
+        async function signUp(email, password) {
+            const { user, error } = await supabase.auth.signUp({ email, password });
+            const statusMessage = document.getElementById('statusMessage');
+            if (error) {
+                console.error("Sign-up error:", error.message);
+                statusMessage.textContent = "Sign-up failed: " + error.message;
+            } else {
+                statusMessage.textContent = "Sign-up successful! Check your email to verify your account.";
+            }
+        }
 
-// Function to handle sign-up
-async function signUp(email, password) {
-    const { user, error } = await supabase.auth.signUp({ email, password });
-    const statusMessage = document.getElementById('statusMessage');
+        async function login(email, password) {
+            const { session, error } = await supabase.auth.signInWithPassword({ email, password });
+            const statusMessage = document.getElementById('statusMessage');
+            if (error) {
+                console.error("Login error:", error.message);
+                statusMessage.textContent = "Login failed: " + error.message;
+            } else {
+                statusMessage.textContent = "Login successful!";
+                window.location.href = "protected.html"; // Redirect to a protected page
+            }
+        }
 
-    if (error) {
-        console.error("Sign-up error:", error.message);
-        statusMessage.textContent = "Sign-up failed: " + error.message;
-    } else {
-        statusMessage.textContent = "Sign-up successful! Check your email to verify your account.";
-    }
-}
+        async function handleAuth() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-// Function to handle login
-async function login(email, password) {
-    const { session, error } = await supabase.auth.signInWithPassword({ email, password });
-    const statusMessage = document.getElementById('statusMessage');
-
-    if (error) {
-        console.error("Login error:", error.message);
-        statusMessage.textContent = "Login failed: " + error.message;
-    } else {
-        statusMessage.textContent = "Login successful!";
-        window.location.href = "protected.html"; // Redirect to a protected page
-    }
-}
-
-// Function to handle authentication based on user input
-async function handleAuth() {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    // Attempt to log in
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-        // If login fails, attempt sign-up
-        await signUp(email, password);
-    } else {
-        // If login is successful, proceed to login
-        await login(email, password);
-    }
-}
+            // Attempt to log in
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                // If login fails, attempt sign-up
+                await signUp(email, password);
+            } else {
+                // If login is successful, proceed to login
+                await login(email, password);
+            }
+        }
+    </script>
+</body>
+</html>
