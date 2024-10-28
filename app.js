@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trackle™ - Login</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!-- Load Supabase from CDN -->
 </head>
 <body>
     <header>
@@ -17,14 +17,15 @@
             <input type="email" id="email" required>
             <label for="password">Password:</label>
             <input type="password" id="password" required>
-            <button type="button" onclick="handleAuth()">Login / Sign Up</button>
+            <button type="button" id="auth-button">Login / Sign Up</button>
         </form>
         <p id="statusMessage"></p>
     </main>
     <footer>
         <p>&copy; 2024 SB Designs. All rights reserved.</p>
     </footer>
-    <script type="module">
+    <script>
+        // Create a Supabase client using your Supabase URL and anon key
         const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co';
         const supabaseKey = 'your-supabase-key-here'; // Replace with your Supabase key
         const supabase = supabase.createClient(supabaseUrl, supabaseKey);
@@ -66,6 +67,8 @@
                 await login(email, password);
             }
         }
+
+        document.getElementById('auth-button').onclick = handleAuth; // Attach the click event to the button
     </script>
 </body>
 </html>
