@@ -5,18 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trackle™ - Login</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script type="module" src="app.js" defer></script>
 </head>
 <body>
-    <h1>Trackle™ Login</h1>
-    <form id="login-form">
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required>
-        <button type="button" onclick="handleAuth()">Login / Sign Up</button>
-    </form>
-    <p id="statusMessage"></p>
-    <script type="module" src="app.js"></script> <!-- Use type="module" -->
+    <header>
+        <h1>Trackle™ Login</h1>
+    </header>
+    <main>
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="button" id="auth-button">Login / Sign Up</button>
+        </form>
+        <p id="statusMessage"></p>
+    </main>
+    <footer>
+        <p>&copy; 2024 SB Designs. All rights reserved.</p>
+    </footer>
 </body>
 </html>
