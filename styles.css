@@ -1,65 +1,36 @@
-:root {
-    --background-dark: #ffffff;
-    --text-light: #000000;
-    --header-dark: #ffffff;
-    --button-dark: #000f9f;
-    --button-hover-dark: #030f8a;
-}
-
 body {
-    background-color: var(--background-dark);
-    color: var(--text-light);
-    font-family: "London Tube", sans-serif;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
 }
 
 header {
-    background-color: var(--header-dark);
-    color: var(--text-light);
-    padding: 20px;
-    text-align: center;
-    border-bottom: 5px solid var(--button-dark);
+  margin-bottom: 20px;
 }
 
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.login-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
 }
 
 button {
-    padding: 10px;
-    background-color: var(--button-dark);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: var(--button-hover-dark);
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 footer {
-    background-color: var(--header-dark);
-    color: var(--text-light);
-    text-align: center;
-    padding: 10px;
-    margin-top: auto;
+  position: absolute;
+  bottom: 10px;
 }
