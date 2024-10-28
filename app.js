@@ -1,7 +1,10 @@
+// Import Supabase client library
+import { createClient } from '@supabase/supabase-js'; // Use this only if you're using a module system, otherwise just include it in your HTML.
+
 // Initialize Supabase client
 const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co'; // Your Supabase URL
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieWNidXlndml0dnlyeGJ5anVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMTEwNjQsImV4cCI6MjA0NTY4NzA2NH0.NcuKCvQ3T1rQid_DVW3z7Df4ICueZ4jYvTdWcLW4ETM'; // Your Supabase anon key
-const supabase = supabase.createClient(supabaseUrl, supabaseKey); // Initialize the Supabase client
+const supabase = createClient(supabaseUrl, supabaseKey); // Correctly initialize the Supabase client
 
 // Function to handle sign-up
 async function signUp(email, password) {
