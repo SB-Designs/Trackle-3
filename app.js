@@ -1,4 +1,4 @@
-// Initialize Supabase client
+// Initialize Supabase client - ensure this is at the very top of your file
 const SUPABASE_URL = 'https://gbycbuygvitvyrxbyjun.supabase.co'; // Replace with your Supabase API URL
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieWNidXlndml0dnlyeGJ5anVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMTEwNjQsImV4cCI6MjA0NTY4NzA2NH0.NcuKCvQ3T1rQid_DVW3z7Df4ICueZ4jYvTdWcLW4ETM'; // Replace with your Supabase anon key
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -37,25 +37,5 @@ async function handleAuth() {
     signUp(email, password); // Sign up if login fails
   } else {
     login(email, password);
-  }
-}
-
-// Check if user is authenticated
-async function checkAuth() {
-  const { data } = await supabase.auth.getSession();
-  if (!data.session) {
-    alert("You must be logged in to access this page.");
-    window.location.href = "index.html"; // Redirect to login page
-  }
-}
-
-// Logout function
-async function logout() {
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    console.error("Error during logout:", error.message);
-  } else {
-    alert("Logged out successfully!");
-    window.location.href = "index.html"; // Redirect to login page
   }
 }
