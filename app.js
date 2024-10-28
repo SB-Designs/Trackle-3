@@ -1,7 +1,7 @@
-// Initialize Supabase client directly
+// Initialize Supabase client
 const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co'; // Your Supabase URL
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieWNidXlndml0dnlyeGJ5anVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMTEwNjQsImV4cCI6MjA0NTY4NzA2NH0.NcuKCvQ3T1rQid_DVW3z7Df4ICueZ4jYvTdWcLW4ETM'; // Your Supabase anon key
-const supabase = supabase.createClient(supabaseUrl, supabaseKey); // Ensure this is correct
+const supabase = supabase.createClient(supabaseUrl, supabaseKey); // Initialize the Supabase client
 
 // Function to handle sign-up
 async function signUp(email, password) {
@@ -35,7 +35,8 @@ async function handleAuth() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    // Attempt to log in
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
         // If login fails, attempt sign-up
         await signUp(email, password);
