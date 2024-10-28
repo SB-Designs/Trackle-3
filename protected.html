@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trackle™ - Protected Page</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  </head>
+  <body onload="checkAuth()">
+    <header>
+      <h1>Welcome to Trackle™</h1>
+    </header>
+
+    <main>
+      <h2>Protected Content</h2>
+      <p>Only logged-in users can see this.</p>
+      <button onclick="logout()">Logout</button>
+    </main>
+
+    <footer>
+      <p>Trackle™️ &#169; SB Designs 2024</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
