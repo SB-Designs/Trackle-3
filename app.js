@@ -1,9 +1,10 @@
 // Supabase Project URL and Anon Key
 const SUPABASE_URL = 'https://gbycbuygvitvyrxbyjun.supabase.co'; // Replace with your Supabase URL
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieWNidXlndml0dnlyeGJ5anVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMTEwNjQsImV4cCI6MjA0NTY4NzA2NH0.NcuKCvQ3T1rQid_DVW3z7Df4ICueZ4jYvTdWcLW4ETM'; // Replace with your Supabase anon key
+const SUPABASE_ANON_KEY = 'your-anon-key'; // Replace with your Supabase anon key
 
 // Initialize Supabase client
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const { createClient } = supabase; // Make sure to import createClient from the Supabase library
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Function to handle sign-up
 async function signUp(email, password) {
