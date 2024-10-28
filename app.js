@@ -1,5 +1,5 @@
 // Initialize Supabase client
-const SUPABASE_URL = 'https://your-project-id.supabase.co'; // Replace with your Supabase API URL
+const SUPABASE_URL = 'https://gbycbuygvitvyrxbyjun.supabase.co'; // Replace with your Supabase API URL
 const SUPABASE_ANON_KEY = 'your-anon-key'; // Replace with your Supabase anon key
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
