@@ -1,74 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trackle™ - Login</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!-- Load Supabase from CDN -->
-</head>
-<body>
-    <header>
-        <h1>Trackle™ Login</h1>
-    </header>
-    <main>
-        <form id="login-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            <button type="button" id="auth-button">Login / Sign Up</button>
-        </form>
-        <p id="statusMessage"></p>
-    </main>
-    <footer>
-        <p>&copy; 2024 SB Designs. All rights reserved.</p>
-    </footer>
-    <script>
-        // Create a Supabase client using your Supabase URL and anon key
-        const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co';
-        const supabaseKey = 'your-supabase-key-here'; // Replace with your Supabase key
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+// app.js
+import { createClient } from '@supabase/supabase-js';
 
-        async function signUp(email, password) {
-            const { user, error } = await supabase.auth.signUp({ email, password });
-            const statusMessage = document.getElementById('statusMessage');
-            if (error) {
-                console.error("Sign-up error:", error.message);
-                statusMessage.textContent = "Sign-up failed: " + error.message;
-            } else {
-                statusMessage.textContent = "Sign-up successful! Check your email to verify your account.";
-            }
+const supabaseUrl = 'https://gbycbuygvitvyrxbyjun.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdieWNidXlndml0dnlyeGJ5anVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAxMTEwNjQsImV4cCI6MjA0NTY4NzA2NH0.NcuKCvQ3T1rQid_DVW3z7Df4ICueZ4jYvTdWcLW4ETM';
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const authButton = document.getElementById('auth-button');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const statusMessage = document.getElementById('statusMessage');
+
+authButton.addEventListener('click', async () => {
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    const { user, session, error } = await supabase.auth.signUp({
+        email,
+        password,
+    });
+
+    if (error) {
+        // Attempting to sign in if there's an error during signup
+        const { error: signInError } = await supabase.auth.signIn({
+            email,
+            password,
+        });
+        if (signInError) {
+            statusMessage.textContent = `Error: ${signInError.message}`;
+        } else {
+            statusMessage.textContent = 'Successfully logged in!';
         }
-
-        async function login(email, password) {
-            const { session, error } = await supabase.auth.signInWithPassword({ email, password });
-            const statusMessage = document.getElementById('statusMessage');
-            if (error) {
-                console.error("Login error:", error.message);
-                statusMessage.textContent = "Login failed: " + error.message;
-            } else {
-                statusMessage.textContent = "Login successful!";
-                window.location.href = "protected.html"; // Redirect to a protected page
-            }
-        }
-
-        async function handleAuth() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Attempt to log in
-            const { error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) {
-                // If login fails, attempt sign-up
-                await signUp(email, password);
-            } else {
-                // If login is successful, proceed to login
-                await login(email, password);
-            }
-        }
-
-        document.getElementById('auth-button').onclick = handleAuth; // Attach the click event to the button
-    </script>
-</body>
-</html>
+    } else {
+        statusMessage.textContent = 'Check your email for confirmation!';
+    }
+});
