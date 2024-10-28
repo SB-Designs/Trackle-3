@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trackle™ - Login</title>
+    <title>Trackle™</title>
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://fonts.cdnfonts.com/css/london-tube" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://cdn.glitch.global/8357f303-720f-4e93-ab5a-fafe557be39c/Underground%20Roundel.ico?v=1697160561957">
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="app.js" defer></script>
 </head>
 <body>
     <header>
         <h1>Trackle™ Login</h1>
     </header>
+
     <main>
-        <form id="login-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            <button type="button" id="auth-button">Login / Sign Up</button>
-        </form>
-        <p id="statusMessage"></p>
+        <div class="login-container">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button id="loginButton">Login</button>
+            <p id="message"></p>
+        </div>
     </main>
+
     <footer>
-        <p>&copy; 2024 SB Designs. All rights reserved.</p>
+        <p>Trackle™️ &#169; SB Designs 2024</p>
     </footer>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>
